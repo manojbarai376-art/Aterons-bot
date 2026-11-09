@@ -1,10 +1,10 @@
 const http = require('http');
 const bedrock = require('bedrock-protocol');
 
-// Render-কে জাগিয়ে রাখার জন্য ডামি ওয়েব সার্ভার
+// Render keep-alive server
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Aternos Bedrock Bot is Running 24/7!\n');
+  res.end('Aternos Bedrock Bot Active 24/7\n');
 });
 
 const PORT = process.env.PORT || 3000;
@@ -12,7 +12,6 @@ server.listen(PORT, () => {
   console.log(`Web server listening on port ${PORT}`);
 });
 
-// মাইনক্রাফট বেডরক বট কোড
 function createBedrockBot() {
   console.log('Connecting Bedrock bot...');
 
@@ -20,11 +19,13 @@ function createBedrockBot() {
     host: 'MinecraftSMP-bPym.aternos.me',
     port: 19132,
     username: 'AFK_Bot_247',
-    offline: true
+    offline: true,
+    skipPing: true,
+    connectTimeout: 30000
   });
 
   client.on('join', () => {
-    console.log('Bedrock Bot successfully server me join ho gaya!');
+    console.log('>>> Bedrock Bot successfully server me join ho gaya! <<<');
   });
 
   client.on('kick', (reason) => {
@@ -37,7 +38,7 @@ function createBedrockBot() {
   });
 
   client.on('error', (err) => {
-    console.log('Error aaya:', err.message);
+    console.log('Bedrock error:', err.message);
   });
 }
 
