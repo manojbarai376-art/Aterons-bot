@@ -1,0 +1,31 @@
+const bedrock = require('bedrock-protocol');
+
+function createBedrockBot() {
+  console.log('Connecting Bedrock bot...');
+
+  const client = bedrock.createClient({
+    host: 'MinecraftSMP-bPym.aternos.me',
+    port: 19132,
+    username: 'AFK_Bot_247',
+    offline: true
+  });
+
+  client.on('join', () => {
+    console.log('Bedrock Bot successfully server me join ho gaya!');
+  });
+
+  client.on('kick', (reason) => {
+    console.log('Bot kick hua:', JSON.stringify(reason));
+  });
+
+  client.on('close', () => {
+    console.log('Connection close hua. 15 second me reconnect kar raha hai...');
+    setTimeout(createBedrockBot, 15000);
+  });
+
+  client.on('error', (err) => {
+    console.log('Error aaya:', err.message);
+  });
+}
+
+createBedrockBot();
