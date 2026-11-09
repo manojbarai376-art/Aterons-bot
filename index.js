@@ -1,5 +1,18 @@
+const http = require('http');
 const bedrock = require('bedrock-protocol');
 
+// Render-কে জাগিয়ে রাখার জন্য ডামি ওয়েব সার্ভার
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Aternos Bedrock Bot is Running 24/7!\n');
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Web server listening on port ${PORT}`);
+});
+
+// মাইনক্রাফট বেডরক বট কোড
 function createBedrockBot() {
   console.log('Connecting Bedrock bot...');
 
